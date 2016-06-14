@@ -6,7 +6,7 @@
 /*   By: msoudan <msoudan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/10 19:26:38 by msoudan           #+#    #+#             */
-/*   Updated: 2015/11/10 19:26:42 by msoudan          ###   ########.fr       */
+/*   Updated: 2016/06/13 18:21:49 by msoudan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,11 @@ static void	delete_iter(t_list *list)
 {
 	t_list	*tmp;
 	t_dlist	*del;
-	void	(*func1)(t_dbl *);
 
-	func1 = delete_content_dlist;
 	if ((tmp = list) != NULL)
 	{
 		del = ((t_dlist *)tmp->content);
-		ft_dlist_iter(del, func1);
+		ft_dlist_iter(del, delete_content_dlist);
 		ft_dlist_del(&del);
 		tmp->content = NULL;
 	}
@@ -67,12 +65,9 @@ static void	delete_iter(t_list *list)
 
 void		delete_ways(t_list *list)
 {
-	void	(*func)(t_list *);
-
-	func = delete_iter;
 	if (list != NULL)
 	{
-		ft_lstiter(list, func);
+		ft_lstiter(list, delete_iter);
 		ft_lstclear(&list);
 	}
 }

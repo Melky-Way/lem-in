@@ -6,7 +6,7 @@
 /*   By: msoudan <msoudan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/23 20:38:12 by msoudan           #+#    #+#             */
-/*   Updated: 2014/03/26 14:23:34 by msoudan          ###   ########.fr       */
+/*   Updated: 2016/06/14 14:16:15 by msoudan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int				send_army(t_architect *bob, t_list *army)
 	tag = 0;
 	count = 0;
 	ft_putstr("Total: ");
-	ft_putstr(ft_itoa(bob->laps_nb));
+	ft_putnbr(bob->laps_nb);
 	ft_putendl(" laps.\n");
 	while (count != bob->ants_nb && (tmp = bob->solution) != NULL)
 	{

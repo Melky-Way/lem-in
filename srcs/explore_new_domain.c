@@ -6,7 +6,7 @@
 /*   By: msoudan <msoudan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/21 15:13:59 by msoudan           #+#    #+#             */
-/*   Updated: 2014/03/22 16:25:56 by msoudan          ###   ########.fr       */
+/*   Updated: 2016/06/14 14:17:13 by msoudan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,22 @@ static void		sort_by_size(t_list *paths)
 	}
 }
 
+static void		print_map_core(t_list *tmp)
+{
+	ft_putstr(((t_room *)tmp->content)->name);
+	ft_putchar(' ');
+	ft_putnbr(((t_room *)tmp->content)->x);
+	ft_putchar(' ');
+	ft_putnbr(((t_room *)tmp->content)->y);
+	ft_putchar('\n');
+}
+
 static void		print_map(t_queen **ant, t_list **tubes)
 {
 	t_list		*tmp;
 
-	ft_putendl(ft_itoa((*ant)->ants_nb));
+	ft_putnbr((*ant)->ants_nb);
+	ft_putchar('\n');
 	tmp = (*ant)->rooms;
 	while (tmp != NULL)
 	{
@@ -60,11 +71,7 @@ static void		print_map(t_queen **ant, t_list **tubes)
 			ft_putendl("#start");
 		else if (tmp->next == NULL)
 			ft_putendl("#exit");
-		ft_putstr(((t_room *)tmp->content)->name);
-		ft_putchar(' ');
-		ft_putstr(ft_itoa(((t_room *)tmp->content)->x));
-		ft_putchar(' ');
-		ft_putendl(ft_itoa(((t_room *)tmp->content)->y));
+		print_map_core(tmp);
 		tmp = tmp->next;
 	}
 	tmp = *tubes;
@@ -103,8 +110,8 @@ void			explore_new_domain(t_queen **ant, t_list **tubes)
 		sort_by_size((*ant)->architect->solution);
 		if ((*ant)->architect->solution != NULL)
 			send_army((*ant)->architect, NULL);
-		else
-			delete_ways(scroll);
+		delete_current_test(&(*ant)->architect->solution);
+		delete_ways(scroll);
 		return ;
 	}
 	ft_putendl("ERROR");

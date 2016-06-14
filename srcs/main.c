@@ -6,7 +6,7 @@
 /*   By: msoudan <msoudan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/21 17:46:33 by msoudan           #+#    #+#             */
-/*   Updated: 2014/03/22 18:25:44 by msoudan          ###   ########.fr       */
+/*   Updated: 2016/06/14 14:57:43 by msoudan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,9 @@ static int		ft_check_map_data(t_queen **ant, t_list **tube)
 
 static void		destroy_queen(t_queen **ant)
 {
-	void		(*func1)(t_list *);
-
-	func1 = delete_content_list;
 	if ((*ant)->rooms != NULL)
 	{
-		ft_lstiter((*ant)->rooms, func1);
+		ft_lstiter((*ant)->rooms, delete_content_list);
 		ft_lstclear(&(*ant)->rooms);
 	}
 	(*ant)->rooms = NULL;
@@ -44,6 +41,8 @@ static void		destroy_queen(t_queen **ant)
 		free((*ant)->start);
 	if ((*ant)->end != NULL)
 		free((*ant)->end);
+	if ((*ant)->architect != NULL)
+		free((*ant)->architect);
 	(*ant)->start = NULL;
 	(*ant)->end = NULL;
 	free((*ant));
@@ -94,9 +93,7 @@ int				main(void)
 	char		*line;
 	t_list		*tube;
 	t_queen		*ant;
-	void		(*func)(t_list *);
 
-	func = delete_tubes;
 	tube = NULL;
 	ant = wake_queen_ant();
 	ft_putendl("Please enter map. Do not use '-' except for tubes.");
@@ -111,7 +108,7 @@ int				main(void)
 		explore_new_domain(&ant, &tube);
 	else
 		ft_putendl("ERROR");
-	ft_lstiter(tube, func);
+	ft_lstiter(tube, delete_tubes);
 	ft_lstclear(&tube);
 	destroy_queen(&ant);
 	return (0);

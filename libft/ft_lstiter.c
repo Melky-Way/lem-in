@@ -6,17 +6,21 @@
 /*   By: msoudan <msoudan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/24 11:25:00 by msoudan           #+#    #+#             */
-/*   Updated: 2014/05/17 19:06:52 by msoudan          ###   ########.fr       */
+/*   Updated: 2016/06/13 16:48:06 by msoudan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+void		ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	while (lst)
+	t_list	*tmp;
+
+	if ((tmp = lst) == NULL)
+		return ;
+	while (tmp)
 	{
-		(*f)(lst);
-		lst = lst->next;
+		(*f)(tmp);
+		tmp = tmp->next;
 	}
 }
